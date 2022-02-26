@@ -1,1 +1,5 @@
+hexlet-code-1.0.0.tgz
+documentation.txt
 node_modules
+*.log
+coverage
