@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import path from "path";
 
-import genDiff from "../src/index.js"; //json parser problem
+import genDiff from "../src/index.js";
 import { readFileContent } from '../src/utils.js'; 
 
 
@@ -21,7 +21,7 @@ test.each(extensions)('Gendiff files - %s:', (format) => {
   const file1 = getPath(`file1.${format}`);
   const file2 = getPath(`file2.${format}`);
 
-  //expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
-  //expect(genDiff(file1, file2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(file1, file2, 'plain')).toEqual(expectedPlain);
   expect(genDiff(file1, file2, 'json')).toEqual(expectedJson);
 });

@@ -13,18 +13,18 @@ const getString = (value, spaces = 0) => {
 
 const formatPretty = (diff, spaces = 0) => {
   const lines = diff.map((node) => {
-    const buildLine = (char, value) => `${getIdent(spaces)}  ${char} ${node.name}: ${getString(value, spaces + 1)}`;
-    switch (node.type) {
-      case 'removed':
-        return buildLine('-', node.value);
+    const buildLine = (char, value) => `${getIdent(spaces)}  ${char} ${node.key}: ${getString(value, spaces + 1)}`;
+    switch (node.state) {
+      case 'deleted':
+        return buildLine('-', node.oldValue);
       case 'unchanged':
-        return buildLine(' ', node.value);
+        return buildLine(' ', node.oldValue);
       case 'changed':
-        return `${getIdent(spaces)}  - ${node.name}: ${getString(node.valueBefore, spaces + 1)}\n ${getIdent(spaces)} + ${node.name}: ${getString(node.valueAfter, spaces + 1)}`;
+        return `${getIdent(spaces)}  - ${node.key}: ${getString(node.oldValue, spaces + 1)}\n ${getIdent(spaces)} + ${node.key}: ${getString(node.newValue, spaces + 1)}`;
       case 'added':
-        return buildLine('+', node.value);
+        return buildLine('+', node.newValue);
       case 'nested':
-        return `${getIdent(spaces)}    ${node.name}: ${formatPretty(node.children, spaces + 1)}`;
+        return `${getIdent(spaces)}    ${node.key}: ${formatPretty(node.children, spaces + 1)}`;
       default:
         return false;
     }

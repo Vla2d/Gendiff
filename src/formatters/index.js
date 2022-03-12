@@ -8,13 +8,6 @@ const formats = {
   json: formatJSON,
 };
 
-///export default (format) => formats[format];
-/*const formats = {
-  stylish,
-  plain,
-  json
-};*/
-
 export default (diff, format) => {
   const getFormatType = formats[format];
   return getFormatType(diff);
