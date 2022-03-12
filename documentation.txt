@@ -1,6 +1,11 @@
 npm pack
 sudo npm i -g hexlet-code-1.0.0.tgz 
 
-gendiff __fixtures__/file1.json __fixtures__/file2.json
+sudo npm link
+
+gendiff __tests__/__fixtures__/file1.json __tests__/__fixtures__/file2.json
+gendiff --format stylish __tests__/__fixtures__/file1.json __tests__/__fixtures__/file2.json
+gendiff --format plain __tests__/__fixtures__/file1.json __tests__/__fixtures__/file2.json
+gendiff --format json __tests__/__fixtures__/file1.json __tests__/__fixtures__/file2.json
 
 gendiff -h

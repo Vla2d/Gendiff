@@ -2,27 +2,23 @@ import path from "path";
 import fs from "fs";
 import genDiff from "../src/index.js";
 
-const getFixturePath = (filename) =>
+const getPath = (filename) =>
   path.join(__dirname, "..", "__fixtures__", filename);
 
 const readFile = (filename) =>
-  fs.readFileSync(getFixturePath(filename), "utf-8").trim();
+  fs.readFileSync(getPath(filename), "utf-8").trim();
 
-const getExpectedResult = (format) => readFile(`result_${format}.txt`);
+const expectedStylish = readFile('./__fixtures__/result-stylish.txt');
+const expectedPlain = readFile('./__fixtures__/result-plain.txt');
+const expectedJson = readFile('./__fixtures__/result-json.txt');
 
-const formats = ["nested", "plain", "json"];
-const extentions = ["json", "yml", "ini"];
+const formats = ['json', 'yml'];
 
-formats.forEach((format) => {
-  test.each(extentions)(
-    `genDiff extension: %s, format: ${format}`,
-    (extention) => {
-      const pathToFileFirst = getFixturePath(`first.${extention}`);
-      const pathToFileSecond = getFixturePath(`second.${extention}`);
-      const currentResult = genDiff(pathToFileFirst, pathToFileSecond, format);
-      const expectedResult = getExpectedResult(format);
+test.each(formats)('Gendiff files - %s:', (format) => {
+  const fileName = getFixturePath(`fileName.${format}`);
+  const fileExtension = getFixturePath(`fileExtension.${format}`);
 
-      expect(currentResult).toBe(expectedResult);
-    }
-  );
+  expect(genDiff(fileName, fileExtension, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(fileName, fileExtension, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(fileName, fileExtension, 'json')).toEqual(expectedJson);
 });
