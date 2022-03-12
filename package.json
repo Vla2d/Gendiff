@@ -2,6 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "main": "src/index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest"
+  },
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -12,6 +15,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "jest": "^27.5.1"
   }
 }

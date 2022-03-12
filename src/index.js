@@ -1,11 +1,11 @@
-import { readFile, getExt } from './utils.js';
+import { readFileContent, getExt } from './utils.js';
 import parse from './parsers.js';
 import genDiff from './genDiff.js';
 import render from './formatters/index.js';
 
 export default (path1, path2, format = 'stylish') => {
-  const file1 = readFile(path1);
-  const file2 = readFile(path2);
+  const file1 = readFileContent(path1);
+  const file2 = readFileContent(path2);
   const ext1 = getExt(path1);
   const ext2 = getExt(path2);
 

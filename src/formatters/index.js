@@ -1,12 +1,19 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
-import json from './json.js';
+import formatStylish from './stylish.js';
+import formatPlain from './plain.js';
+import formatJSON from './json.js';
 
-const formats = {
+const formats = { 
+  stylish: formatStylish, 
+  plain: formatPlain, 
+  json: formatJSON,
+};
+
+///export default (format) => formats[format];
+/*const formats = {
   stylish,
   plain,
   json
-};
+};*/
 
 export default (diff, format) => {
   const getFormatType = formats[format];

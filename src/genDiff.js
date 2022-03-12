@@ -6,18 +6,18 @@ const genDiff = (file1, file2) => {
   const diff = keys.map((node) => {
     if (!_.has(file1, node)) {
       return {
-        name: node,
-        type: "added",
-        value: file2[node],
+        key: node,
+        state: "added",
+        newValue: file2[node],
       };
     }
     if (!_.has(file2, node)) {
-      return { name: node, type: "removed", value: file1[node] };
+      return { key: node, state: "deleted", oldValue: file1[node] };
     }
     if (_.isObject(file1[node]) && _.isObject(file2[node])) {
       return {
-        name: node,
-        type: "nested",
+        key: node,
+        state: "nested",
         children: genDiff(file1[node], file2[node]),
       };
     }
@@ -26,13 +26,13 @@ const genDiff = (file1, file2) => {
       file1[node] !== file2[node]
     ) {
       return {
-        name: node,
-        type: "changed",
-        valueBefore: file1[node],
-        valueAfter: file2[node],
+        key: node,
+        state: "changed",
+        oldValue: file1[node],
+        newValue: file2[node],
       };
     }
-    return { name: node, type: "unchanged", value: file1[node] };
+    return { key: node, state: "unchanged", oldValue: file1[node] };
   });
   return _.sortBy(diff, "name");
 };

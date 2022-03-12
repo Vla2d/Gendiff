@@ -1,24 +1,27 @@
+import { fileURLToPath } from 'url';
 import path from "path";
-import fs from "fs";
-import genDiff from "../src/index.js";
 
-const getPath = (filename) =>
-  path.join(__dirname, "..", "__fixtures__", filename);
+import genDiff from "../src/index.js"; //json parser problem
+import { readFileContent } from '../src/utils.js'; 
 
-const readFile = (filename) =>
-  fs.readFileSync(getPath(filename), "utf-8").trim();
 
-const expectedStylish = readFile('./__fixtures__/result-stylish.txt');
-const expectedPlain = readFile('./__fixtures__/result-plain.txt');
-const expectedJson = readFile('./__fixtures__/result-json.txt');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const formats = ['json', 'yml'];
+const getPath = (filename) => path.join(__dirname, '..', '__tests__/__fixtures__', filename);
+const readFile = (filename) => readFileContent(getPath(filename), 'utf-8');
 
-test.each(formats)('Gendiff files - %s:', (format) => {
-  const fileName = getFixturePath(`fileName.${format}`);
-  const fileExtension = getFixturePath(`fileExtension.${format}`);
+const expectedStylish = readFile('result-stylish.txt');
+const expectedPlain = readFile('result-plain.txt');
+const expectedJson = readFile('result-json.txt');
 
-  expect(genDiff(fileName, fileExtension, 'stylish')).toEqual(expectedStylish);
-  expect(genDiff(fileName, fileExtension, 'plain')).toEqual(expectedPlain);
-  expect(genDiff(fileName, fileExtension, 'json')).toEqual(expectedJson);
+const extensions = ['json', 'yml'];
+
+test.each(extensions)('Gendiff files - %s:', (format) => {
+  const file1 = getPath(`file1.${format}`);
+  const file2 = getPath(`file2.${format}`);
+
+  //expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
+  //expect(genDiff(file1, file2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(file1, file2, 'json')).toEqual(expectedJson);
 });
