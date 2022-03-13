@@ -5,21 +5,17 @@ const genDiff = (file1, file2) => {
 
   const diff = keys.map((node) => {
     if (!_.has(file1, node)) {
-      return {
-        key: node,
+      return { key: node,
         state: 'added',
-        newValue: file2[node]
-      };
+        newValue: file2[node] };
     }
     if (!_.has(file2, node)) {
       return { key: node, state: 'deleted', oldValue: file1[node] };
     }
     if (_.isObject(file1[node]) && _.isObject(file2[node])) {
-      return {
-        key: node,
+      return { key: node,
         state: 'nested',
-        children: genDiff(file1[node], file2[node])
-      };
+        children: genDiff(file1[node], file2[node]) };
     }
     if (
       typeof file1[node] !== typeof file2[node]
