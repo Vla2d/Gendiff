@@ -31,7 +31,7 @@ const formatPlain = (diff, ancestor = '') => {
         case 'nested':
           return formatPlain(node.children, getNodeName(node, ancestor));
         default:
-          return false; 
+          return false;
       }
     });
   const innerValue = lines.join('\n');

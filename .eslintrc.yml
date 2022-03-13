@@ -1,0 +1,30 @@
+plugins:
+  # https://github.com/jest-community/eslint-plugin-jest
+  - 'jest'
+  - 'fp'
+
+# https://eslint.org/docs/user-guide/configuring#specifying-environments
+env:
+  node: true
+  es2020: true
+
+extends:
+  - 'airbnb-base'
+  - 'plugin:jest/recommended'
+  - 'plugin:fp/recommended'
+
+parserOptions:
+  ecmaVersion: 11
+  sourceType: module
+
+rules:
+  no-console: 0
+  import/extensions: 0 # FIXME: remove when rule will be adjusted for new nodejs version
+  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
+  fp/no-throw: 0
+  fp/no-nil: 0
+  fp/no-unused-expression: 0
+  comma-dangle: ['error', 'always-multiline']
+  implicit-arrow-linebreak: ['error', 'beside']
+  object-curly-newline: ['error', { 'minProperties': 4 }]
+  no-trailing-spaces: ['error']
