@@ -9,7 +9,6 @@ program
   .arguments('<pathToFile1> <pathToFile2>')
   .option('-f, --format [type]', 'output format')
   .action((pathToFile1, pathToFile2) => {
-    console.log(`The first file is ${pathToFile1} and the second is ${pathToFile2} \n`) 
     console.log(genDiff(pathToFile1, pathToFile2, program.opts().format));
   })
   .parse(process.argv);
